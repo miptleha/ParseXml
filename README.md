@@ -4,7 +4,7 @@ An application that scans a folder with xml files, finds matching files and save
 
 ## Usage
 
-Unpack the application distribution from the release into some folder.  
+Unpack the application [distribution](https://github.com/miptleha/ParseXml/releases/latest) into some folder.  
 In the ParseXml.exe.config configuration file, set up the connection string for the Oracle database.  
 Create a test table using the script from the [scripts](scripts) folder.  
 In the TestXml folder, run the powershell script that duplicates the usage.xml file 10000 times.  

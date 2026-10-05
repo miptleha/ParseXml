@@ -24,14 +24,14 @@
         <cat_ru:Code>10000000</cat_ru:Code>
       </grn_cl:CustomsOffice>
       <grn_cl:CustomsOfficial>
-        <cat_ru:PersonName>тестер</cat_ru:PersonName>
+        <cat_ru:PersonName>tester</cat_ru:PersonName>
       </grn_cl:CustomsOfficial>
       <grn_cl:CustomsDocument>
         <grn_cat:DocumentKind>9</grn_cat:DocumentKind>
       </grn_cl:CustomsDocument>
       <grn_cl:GuaranteeDocument>
-        <cat_ru:PrDocumentName>ТР</cat_ru:PrDocumentName>
-        <cat_ru:PrDocumentNumber>10700000/260520/ЭР-0000075</cat_ru:PrDocumentNumber>
+        <cat_ru:PrDocumentName>TR</cat_ru:PrDocumentName>
+        <cat_ru:PrDocumentNumber>10700000/260520/ER-0000075</cat_ru:PrDocumentNumber>
         <cat_ru:PrDocumentDate>2020-05-26</cat_ru:PrDocumentDate>
         <grn_cat:DocumentKind>6</grn_cat:DocumentKind>
       </grn_cl:GuaranteeDocument>
@@ -40,7 +40,7 @@
         <grn_cat:CurrencyCode>673</grn_cat:CurrencyCode>
       </grn_cl:ReservationAmount>
       <grn_cl:LiableTrader>
-        <cat_ru:ShortName>ООО "ТРАНСНЕФТЕТРЕЙДИНГ"</cat_ru:ShortName>
+        <cat_ru:ShortName>LLC "TRANSNEFTETRADING"</cat_ru:ShortName>
         <cat_ru:RFOrganizationFeatures>
           <cat_ru:INN>5614085319</cat_ru:INN>
           <cat_ru:KPP>561401001</cat_ru:KPP>

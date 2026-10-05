@@ -51,7 +51,7 @@ namespace ParseXml.Forms
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(50, 13);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Колонка";
+            this.label1.Text = "Column";
             // 
             // tbPath
             // 
@@ -67,7 +67,7 @@ namespace ParseXml.Forms
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(58, 13);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Путь в xml";
+            this.label2.Text = "Xml path";
             // 
             // btnOk
             // 
@@ -76,7 +76,7 @@ namespace ParseXml.Forms
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(94, 23);
             this.btnOk.TabIndex = 12;
-            this.btnOk.Text = "ОК";
+            this.btnOk.Text = "OK";
             this.btnOk.UseVisualStyleBackColor = true;
             // 
             // btnCancel
@@ -86,7 +86,7 @@ namespace ParseXml.Forms
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(94, 23);
             this.btnCancel.TabIndex = 13;
-            this.btnCancel.Text = "Отмена";
+            this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
             // EditColumn
@@ -105,7 +105,7 @@ namespace ParseXml.Forms
             this.Name = "EditColumn";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Выгружаемое поле";
+            this.Text = "Exported field";
             this.ResumeLayout(false);
             this.PerformLayout();
 

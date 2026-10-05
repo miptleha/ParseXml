@@ -1,29 +1,35 @@
-Приложение для сканирования папки с xml файлами, нахождения нужных файлов и сохранению заданных сведений из файлов в таблицу в БД
+# ParseXml
 
-## Использование
-Распакуйте дистрибутив приложения из релиза в какую-нибудь папку.  
-В конфигурационном файле ParseXml.exe.config настройте строку подключения к Оракловой БД.  
-Создайте тестовую табличку скриптом из папки [scripts](scripts).  
-В папке TestXml запустите powershell скрипт дублирующий 10000 раз файл usage.xml.
-Запустите приложение ParseXml.exe и запустите обработку xml.  
-В результате работы часть содержимого файлов будет выгружено в ранее созданную таблицу.
+An application that scans a folder with xml files, finds matching files and saves selected data from the files into a table in the database
 
-## Компиляция приложения
-Приложение написано на .NET Framework Windows Forms 4.0.  
-Сборка проводилась в Visual Studio 2019.
+## Usage
 
-## Смена БД
-Используется Оракловая БД, однако приложение можно адаптировать под любую БД.  
-Для этого подключите в Refference библиотеку работы с нужной БД (используется Oracle.ManagedDataAccess).  
-В папке Db реализуйте свой наследник от интерфейса IDbExecuter и подключите его в Forms/Main.cs вместо DbExecuter.
+Unpack the application distribution from the release into some folder.  
+In the ParseXml.exe.config configuration file, set up the connection string for the Oracle database.  
+Create a test table using the script from the [scripts](scripts) folder.  
+In the TestXml folder, run the powershell script that duplicates the usage.xml file 10000 times.  
+Run the ParseXml.exe application and start the xml processing.  
+As a result, part of the file contents will be exported into the previously created table.
 
-## Фильтр и Путь в xml
-Для Фильтра позволяется использовать круглые скобки, связки and и or, ссылаться на атрибут (@), уточнять местоположение элемента, например:
-Header.MessageKind=IPS.ASG.007 - внутри тэга Header на произвольном уровне вложенности найди тэг MessageKind и убедись, что его значение равно IPS.ASG.007
+## Building the application
 
-Есть редактируемый список выгружаемых полей в виде таблицы из двух колонок.  
-Первая колонка - название колонки в таблице (таблица должна быть создана, а колонка должна существовать).  
-Вторая колонка - путь поиска значения в xml, которое будет сохранено в колонку (может быть тэгом, атрибутом (указать перед именем @), можно уточнять родителей), например:
-CustomsDocument.PrDocumentNumber - внутри тэга CustomsDocument на произвольном уровне вложенности найди тэг PrDocumentNumber и извлеки его текстовое значение
+The application is written in .NET Framework Windows Forms 4.0.  
+It was built in Visual Studio 2019.
 
-Пространства имен внутри xml игнорируются
+## Switching the database
+
+An Oracle database is used, but the application can be adapted to any database.  
+To do this, add a library for working with the desired database to References (Oracle.ManagedDataAccess is used).  
+In the Db folder, implement your own implementation of the IDbExecuter interface and plug it in Forms/Main.cs instead of DbExecuter.
+
+## Filter and Path in xml
+
+For the Filter, parentheses, the and and or operators are allowed, as well as references to an attribute (@) and specifying the element location, for example:  
+Header.MessageKind=IPS.ASG.007 - inside the Header tag at any nesting level, find the MessageKind tag and make sure its value equals IPS.ASG.007
+
+There is an editable list of exported fields in the form of a two-column table.  
+The first column is the column name in the table (the table must be created and the column must exist).  
+The second column is the path to search for the value in xml that will be saved into the column (it can be a tag, an attribute (put @ before the name), parent elements can be specified), for example:  
+CustomsDocument.PrDocumentNumber - inside the CustomsDocument tag at any nesting level, find the PrDocumentNumber tag and extract its text value
+
+Namespaces inside xml are ignored

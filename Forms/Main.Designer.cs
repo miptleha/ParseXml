@@ -58,7 +58,7 @@ namespace ParseXml.Forms
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(115, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Папка с xml файлами";
+            this.label1.Text = "Xml files folder";
             // 
             // tbXmlDir
             // 
@@ -73,7 +73,7 @@ namespace ParseXml.Forms
             this.btnParse.Name = "btnParse";
             this.btnParse.Size = new System.Drawing.Size(94, 23);
             this.btnParse.TabIndex = 15;
-            this.btnParse.Text = "Выгрузить";
+            this.btnParse.Text = "Export";
             this.btnParse.UseVisualStyleBackColor = true;
             this.btnParse.Click += new System.EventHandler(this.btnParse_Click);
             // 
@@ -91,7 +91,7 @@ namespace ParseXml.Forms
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(47, 13);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Фильтр";
+            this.label2.Text = "Filter";
             // 
             // lvColumns
             // 
@@ -111,12 +111,12 @@ namespace ParseXml.Forms
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = "Колонка";
+            this.columnHeader1.Text = "Column";
             this.columnHeader1.Width = 156;
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "Путь в xml";
+            this.columnHeader2.Text = "Xml path";
             this.columnHeader2.Width = 539;
             // 
             // label3
@@ -126,7 +126,7 @@ namespace ParseXml.Forms
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(131, 13);
             this.label3.TabIndex = 5;
-            this.label3.Text = "Выгружаемые сведения";
+            this.label3.Text = "Exported data";
             // 
             // tbTable
             // 
@@ -142,7 +142,7 @@ namespace ParseXml.Forms
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(50, 13);
             this.label4.TabIndex = 10;
-            this.label4.Text = "Таблица";
+            this.label4.Text = "Table";
             // 
             // cbTableClear
             // 
@@ -151,7 +151,7 @@ namespace ParseXml.Forms
             this.cbTableClear.Name = "cbTableClear";
             this.cbTableClear.Size = new System.Drawing.Size(116, 17);
             this.cbTableClear.TabIndex = 12;
-            this.cbTableClear.Text = "Очистить таблицу";
+            this.cbTableClear.Text = "Clear table";
             this.cbTableClear.UseVisualStyleBackColor = true;
             // 
             // btnSaveSettings
@@ -160,7 +160,7 @@ namespace ParseXml.Forms
             this.btnSaveSettings.Name = "btnSaveSettings";
             this.btnSaveSettings.Size = new System.Drawing.Size(142, 23);
             this.btnSaveSettings.TabIndex = 16;
-            this.btnSaveSettings.Text = "Сохранить настройки";
+            this.btnSaveSettings.Text = "Save settings";
             this.btnSaveSettings.UseVisualStyleBackColor = true;
             this.btnSaveSettings.Click += new System.EventHandler(this.btnSaveSettings_Click);
             // 
@@ -249,7 +249,7 @@ namespace ParseXml.Forms
             this.MaximizeBox = false;
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Выгрузка данных из xml в таблицу";
+            this.Text = "Export data from xml to table";
             this.Load += new System.EventHandler(this.Main_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -37,7 +37,7 @@ namespace ParseXml.Db
                     foreach (var p in ps)
                         cmd.Parameters.Add(p.Name, p.Value);
                     string commandText = CommandText(cmd);
-                    log.Debug("Выполнение команды: " + commandText);
+                    log.Debug("Executing command: " + commandText);
                     try
                     {
                         cmd.ExecuteNonQuery();
@@ -65,7 +65,7 @@ namespace ParseXml.Db
                 ps += p.ParameterName + "=" + p.Value;
             }
 
-            return cmd.CommandText + (ps.Length > 0 ? "\nПараметры: " + ps : "");
+            return cmd.CommandText + (ps.Length > 0 ? "\nParameters: " + ps : "");
         }
 
         string _conStr;

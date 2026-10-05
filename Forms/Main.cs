@@ -121,15 +121,15 @@ namespace ParseXml.Forms
             {
                 if (d.FieldName == null)
                 {
-                    MessageBox.Show("Укажите имя поля.", "Проверка",
+                    MessageBox.Show("Field name is required.", "Validation",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     continue;
                 }
 
                 if (FindColumn(d.FieldName) != null)
                 {
-                    MessageBox.Show(string.Format("Поле \"{0}\" уже есть в списке.", d.FieldName),
-                        "Дубликат", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(string.Format("Field \"{0}\" is already in the list.", d.FieldName),
+                        "Duplicate", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     continue;
                 }
 
@@ -162,7 +162,7 @@ namespace ParseXml.Forms
             {
                 if (d.FieldName == null)
                 {
-                    MessageBox.Show("Укажите имя поля.", "Проверка",
+                    MessageBox.Show("Field name is required.", "Validation",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     continue;
                 }
@@ -170,8 +170,8 @@ namespace ParseXml.Forms
                 var existing = FindColumn(d.FieldName);
                 if (existing != null && existing != item)
                 {
-                    MessageBox.Show(string.Format("Поле \"{0}\" уже есть в списке.", d.FieldName),
-                        "Дубликат", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(string.Format("Field \"{0}\" is already in the list.", d.FieldName),
+                        "Duplicate", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     continue;
                 }
 
@@ -235,9 +235,9 @@ namespace ParseXml.Forms
             {
                 string folder = tbXmlDir.Text.Trim();
                 if (string.IsNullOrEmpty(folder))
-                    throw new InfoException("Не указана папка с xml");
+                    throw new InfoException("Xml folder is not specified");
                 if (!Directory.Exists(folder))
-                    throw new InfoException("Указанная папка с xml не существует");
+                    throw new InfoException("The specified xml folder does not exist");
 
                 string filter = tbFilter.Text.Trim();
                 string xFilter = XmlSearch.ToXPath(filter);
@@ -245,7 +245,7 @@ namespace ParseXml.Forms
 
                 var fields = GetFields();
                 if (fields.Count == 0)
-                    throw new InfoException("Выгружаемые сведения не заполнены");
+                    throw new InfoException("Exported data is not filled in");
                 var parsedFields = new List<Tuple<string, string>>();
                 foreach (var f in fields)
                 {
@@ -265,7 +265,7 @@ namespace ParseXml.Forms
                     }
                     catch (Exception ex)
                     {
-                        throw new InfoException("Для поля: " + field + " ошибка разбора пути: " + path + ". " + ex.Message);
+                        throw new InfoException("For field: " + field + ", error parsing path: " + path + ". " + ex.Message);
                     }
                 }
 
@@ -280,11 +280,11 @@ namespace ParseXml.Forms
                     log.Error(ex);
                     return;
                 }
-                log.Debug("Обнаружено " + total + " файлов в папке " + folder);
+                log.Debug("Found " + total + " files in folder " + folder);
 
                 string tabName = tbTable.Text.Trim();
                 if (string.IsNullOrEmpty(tabName))
-                    throw new InfoException("Не указано имя таблицы");
+                    throw new InfoException("Table name is not specified");
 
                 string sqlCols = string.Join(", ", parsedFields.Select(t => t.Item1));
                 string sqlValues = string.Join(", ", parsedFields.Select(t => "@" + t.Item1));
@@ -296,7 +296,7 @@ namespace ParseXml.Forms
                 }
                 catch (Exception ex)
                 {
-                    throw new InfoException("В конфигурационном файле не прописана строка подключения к БД. " + ex.Message);
+                    throw new InfoException("Database connection string is not configured in the config file. " + ex.Message);
                 }
 
                 var job = new ParseJob
@@ -321,27 +321,27 @@ namespace ParseXml.Forms
                 progressBar.Maximum = 100;
                 progressBar.Value = 0;
                 _parseTotal = total;
-                //lblProgress.Text = "Обработано 0 из " + total + ", сохранено 0";
+                //lblProgress.Text = "Processed 0 of " + total + ", saved 0";
             }
             catch (DbException ex)
             {
                 log.Error(ex);
                 if (ex.Type == DbExceptionType.Connection)
-                    MessageBox.Show(this, "Ошибка соединения с БД:\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(this, "Database connection error:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 else if (ex.Type == DbExceptionType.Query)
-                    MessageBox.Show(this, "Ошибка выполнения запроса:\n" + ex.CommandText + "\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(this, "Query execution error:\n" + ex.CommandText + "\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 else
-                    MessageBox.Show(this, ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (InfoException ex)
             {
                 log.Error(ex);
-                MessageBox.Show(this, ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
                 log.Error(ex);
-                MessageBox.Show(this, ex.ToString(), "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -381,14 +381,14 @@ namespace ParseXml.Forms
                 }
                 catch (Exception ex)
                 {
-                    log.Debug("Ошибка загрузки xml файла: " + Path.GetFileName(file) + ". " + ex.Message);
+                    log.Debug("Error loading xml file: " + Path.GetFileName(file) + ". " + ex.Message);
                 }
 
                 bool isOk = XmlSearch.Filter(doc, job.XPathFilter);
                 if (isOk)
                 {
                     okCount++;
-                    log.Debug(count + " из " + job.Total + " файл " + Path.GetFileName(file) + " соответствует фильтру");
+                    log.Debug(count + " of " + job.Total + " file " + Path.GetFileName(file) + " matches the filter");
                     var result = new List<string>();
                     var dbParams = new List<DbParam>();
                     foreach (var t in job.Fields)
@@ -416,7 +416,7 @@ namespace ParseXml.Forms
         {
             var stat = (Tuple<int, int>)e.UserState;
 
-            lblProgress.Text = "Обработано " + stat.Item1 + " из " + _parseTotal + ", сохранено " + stat.Item2 + ", время: " + _stopwatch.Elapsed.ToString("hh\\:mm\\:ss");
+            lblProgress.Text = "Processed " + stat.Item1 + " of " + _parseTotal + ", saved " + stat.Item2 + ", time: " + _stopwatch.Elapsed.ToString("hh\\:mm\\:ss");
 
             if (progressBar.Value != e.ProgressPercentage)
                 progressBar.Value = e.ProgressPercentage;
@@ -433,24 +433,24 @@ namespace ParseXml.Forms
                 {
                     log.Error(dbEx);
                     if (dbEx.Type == DbExceptionType.Connection)
-                        MessageBox.Show(this, "Ошибка соединения с БД:\n" + dbEx.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(this, "Database connection error:\n" + dbEx.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     else if (dbEx.Type == DbExceptionType.Query)
-                        MessageBox.Show(this, "Ошибка выполнения запроса:\n" + dbEx.CommandText + "\n" + dbEx.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(this, "Query execution error:\n" + dbEx.CommandText + "\n" + dbEx.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     else
-                        MessageBox.Show(this, dbEx.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(this, dbEx.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
                     log.Error(e.Error);
-                    MessageBox.Show(this, e.Error.ToString(), "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(this, e.Error.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 return;
             }
 
             var stat = (Tuple<int, int>)e.Result;
             _stopwatch.Stop();
-            MessageBox.Show(this, "Обработано " + stat.Item1 + " файлов, сохранено " + stat.Item2 + ", время: " + _stopwatch.Elapsed.ToString("hh\\:mm\\:ss"),
-                "Обработка завершена", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(this, "Processed " + stat.Item1 + " files, saved " + stat.Item2 + ", time: " + _stopwatch.Elapsed.ToString("hh\\:mm\\:ss"),
+                "Processing completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnXmlDir_Click(object sender, EventArgs e)

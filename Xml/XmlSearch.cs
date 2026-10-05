@@ -11,11 +11,11 @@ namespace ParseXml.Xml
     {
         static ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        // ---------- Публичный API ----------
+        // ---------- Public API ----------
 
         /// <summary>
-        /// Преобразует человекочитаемый запрос в XPath-строку (namespace-агностичную).
-        /// Пример: "MessageKind=IPS%" -> "//*[local-name()='MessageKind' and starts-with(., 'IPS')]"
+        /// Converts a human-readable query into an XPath string (namespace-agnostic).
+        /// Example: "MessageKind=IPS%" -> "//*[local-name()='MessageKind' and starts-with(., 'IPS')]"
         /// </summary>
         public static string ToXPath(string query)
         {
@@ -27,8 +27,8 @@ namespace ParseXml.Xml
         }
 
         /// <summary>
-        /// Возвращает значение первого узла, найденного по XPath.
-        /// null — если не найдено.
+        /// Returns the value of the first node found by XPath.
+        /// null if not found.
         /// </summary>
         public static string Find(string xmlPath, string xpath)
         {
@@ -51,8 +51,8 @@ namespace ParseXml.Xml
         }
 
         /// <summary>
-        /// true, если XPath-выражение на документе вычисляется в true
-        /// (или, если это node-set, набор непустой).
+        /// true if the XPath expression evaluates to true on the document
+        /// (or, if it is a node-set, the set is non-empty).
         /// </summary>
         public static bool Filter(string xmlPath, string xpath)
         {
@@ -146,7 +146,7 @@ namespace ParseXml.Xml
             public OrNode(Node l, Node r) { _left = l; _right = r; }
         }
 
-        // ---------- Парсер ----------
+        // ---------- Parser ----------
 
         internal sealed class Parser
         {
@@ -163,13 +163,13 @@ namespace ParseXml.Xml
             {
                 SkipWs();
                 if (_pos >= _s.Length)
-                    throw new ArgumentException("Пустое выражение.");
+                    throw new ArgumentException("Empty expression.");
 
                 Node node = ParseOr();
                 SkipWs();
                 if (_pos < _s.Length)
                     throw new ArgumentException(string.Format(
-                        "Неожиданный символ '{0}' на позиции {1}.", _s[_pos], _pos));
+                        "Unexpected character '{0}' at position {1}.", _s[_pos], _pos));
                 return node;
             }
 
@@ -225,7 +225,7 @@ namespace ParseXml.Xml
                     SkipWs();
                     if (_pos >= _s.Length || _s[_pos] != ')')
                         throw new ArgumentException(string.Format(
-                            "Ожидалась ')' на позиции {0}.", _pos));
+                            "Expected ')' at position {0}.", _pos));
                     _pos++;
                     return node;
                 }
@@ -282,7 +282,7 @@ namespace ParseXml.Xml
                 while (_pos < _s.Length && IsIdentChar(_s[_pos])) _pos++;
                 if (_pos == start)
                     throw new ArgumentException(string.Format(
-                        "Ожидался идентификатор на позиции {0}.", _pos));
+                        "Expected identifier at position {0}.", _pos));
                 return _s.Substring(start, _pos - start);
             }
 
@@ -290,7 +290,7 @@ namespace ParseXml.Xml
             {
                 SkipWs();
                 if (_pos >= _s.Length)
-                    throw new ArgumentException("Ожидался шаблон после '='.");
+                    throw new ArgumentException("Expected pattern after '='.");
 
                 char c = _s[_pos];
                 if (c == '"' || c == '\'')
@@ -299,7 +299,7 @@ namespace ParseXml.Xml
                     int start = _pos;
                     while (_pos < _s.Length && _s[_pos] != c) _pos++;
                     if (_pos >= _s.Length)
-                        throw new ArgumentException("Не закрыта кавычка в шаблоне.");
+                        throw new ArgumentException("Unclosed quote in pattern.");
                     string val = _s.Substring(start, _pos - start);
                     _pos++;
                     return val;
@@ -309,7 +309,7 @@ namespace ParseXml.Xml
                 while (_pos < _s.Length && IsPatternChar(_s[_pos])) _pos++;
                 if (_pos == pStart)
                     throw new ArgumentException(string.Format(
-                        "Ожидался шаблон на позиции {0}.", _pos));
+                        "Expected pattern at position {0}.", _pos));
                 return _s.Substring(pStart, _pos - pStart);
             }
 
@@ -341,7 +341,7 @@ namespace ParseXml.Xml
             }
         }
 
-        // ---------- Построение XPath ----------
+        // ---------- XPath building ----------
 
         internal static class XPathBuilder
         {
@@ -361,7 +361,7 @@ namespace ParseXml.Xml
                 if (o != null)
                     return "(" + BuildBoolean(o.Left) + " or " + BuildBoolean(o.Right) + ")";
 
-                throw new InvalidOperationException("Неизвестный узел AST.");
+                throw new InvalidOperationException("Unknown AST node.");
             }
 
             public static string BuildPath(PathNode path)
@@ -375,9 +375,9 @@ namespace ParseXml.Xml
 
                     if (seg.IsAttribute && !isLast)
                         throw new ArgumentException(
-                            "Атрибут (@...) может быть только последним сегментом.");
+                            "Attribute (@...) can only be the last segment.");
 
-                    if (i > 0) sb.Append("//");   // было '/'
+                    if (i > 0) sb.Append("//");   // was '/'
 
                     if (seg.IsAttribute)
                         sb.Append("@*[local-name()='").Append(EscapeName(seg.Name)).Append("']");
@@ -400,9 +400,9 @@ namespace ParseXml.Xml
 
                     if (seg.IsAttribute && !isLast)
                         throw new ArgumentException(
-                            "Атрибут (@...) может быть только последним сегментом.");
+                            "Attribute (@...) can only be the last segment.");
 
-                    if (i > 0) sb.Append("//");   // было '/'
+                    if (i > 0) sb.Append("//");   // was '/'
 
                     if (seg.IsAttribute)
                     {
@@ -438,7 +438,7 @@ namespace ParseXml.Xml
 
                 if (mid > 0)
                     throw new NotSupportedException(string.Format(
-                        "Шаблон с несколькими '%' в середине не поддерживается: '{0}'.", pattern));
+                        "Pattern with multiple '%' in the middle is not supported: '{0}'.", pattern));
 
                 if (startsPct && endsPct)
                 {

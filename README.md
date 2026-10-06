@@ -33,3 +33,5 @@ The second column is the path to search for the value in xml that will be saved 
 CustomsDocument.PrDocumentNumber - inside the CustomsDocument tag at any nesting level, find the PrDocumentNumber tag and extract its text value
 
 Namespaces inside xml are ignored
+
+[![hits](https://myhits.vercel.app/api/hit/https%3A%2F%2Fgithub.com%2Fmiptleha%2FParseXml?color=blue&label=hits&size=small)](https://myhits.vercel.app)
